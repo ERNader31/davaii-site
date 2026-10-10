@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>مجید دوایی | مدرس فیزیک دبیرستان</title>
+<meta name="description" content="مجید دوایی — مدرس فیزیک دبیرستان، رتبه ۲ دکترای فیزیک سراسری، رتبه ۱ استخدامی آموزش و پرورش تهران، ۱۸ سال سابقه تدریس.">
+<meta name="theme-color" content="#FAF9F6">
+<style>
+@font-face{font-family:'Abar';src:url(data:font/woff2;base64,__ABAR_REG__) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Abar';src:url(data:font/woff2;base64,__ABAR_SEMI__) format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Abar';src:url(data:font/woff2;base64,__ABAR_BLACK__) format('woff2');font-weight:900;font-style:normal;font-display:swap}
+
+:root{
+  --bg:#FAF9F6; --surface:#FFFFFF; --ink:#171310; --muted:#6E6558;
+  --line:#E8E3DA; --accent:#A8251C; --accent-soft:rgba(168,37,28,.08);
+  --radius:20px; --ease:cubic-bezier(.22,1,.36,1); --pad:clamp(28px,5vw,64px);
+  --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden}
+body{font-family:'Abar',system-ui,sans-serif;background:var(--bg);color:var(--ink);
+  font-size:16px;line-height:1.9;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:#fff}
+img{max-width:100%}
+svg{display:block}
+
+/* ---------- Dark mode ---------- */
+html[data-theme="dark"]{
+  --bg:#141110; --surface:#1E1A16; --ink:#F2EDE6; --muted:#A79C8E;
+  --line:#2E2822; --accent:#E05A4E; --accent-soft:rgba(224,90,78,.12);
+}
+html[data-theme="dark"] .stat,
+html[data-theme="dark"] .degree,
+html[data-theme="dark"] .subj,
+html[data-theme="dark"] .mstep,
+html[data-theme="dark"] .cov .card,
+html[data-theme="dark"] .contact-card{background:rgba(30,26,22,.72)}
+html[data-theme="dark"] .hero .kicker,
+html[data-theme="dark"] .btn-ghost{background:rgba(30,26,22,.65)}
+html[data-theme="dark"] .portrait-wrap img{border-color:var(--surface)}
+html[data-theme="dark"] .orbit{background:var(--surface)}
+html[data-theme="dark"] header{background:rgba(20,17,16,.88)}
+html[data-theme="dark"] .drawer .sheet{background:var(--surface)}
+html[data-theme="dark"] .chat-body{background:var(--bg)}
+html[data-theme="dark"] .msg.bot{background:var(--surface)}
+html[data-theme="dark"] .chat-input input{background:var(--bg);color:var(--ink)}
+html[data-theme="dark"] .chat-suggest{background:var(--bg)}
+html[data-theme="dark"] .chat-suggest button{background:var(--surface)}
+html[data-theme="dark"] .chat-panel{background:var(--surface)}
+html[data-theme="dark"] .drawer .sheet a:active{background:var(--accent-soft)}
+html[data-theme="dark"] footer{border-top:1px solid var(--line)}
+html[data-theme="dark"] .titem::before{background:var(--surface)}
+.ic{width:24px;height:24px;flex:none}
+.ic-sm{width:19px;height:19px}
+.ic-lg{width:27px;height:27px}
+.tile{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.tile.round{border-radius:50%}
+
+/* ---------- Hero WebGL background (Acid Squares) ---------- */
+#acid{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;
+  opacity:.92;
+  -webkit-mask-image:linear-gradient(to bottom,black 0%,black 62%,transparent 100%);
+  mask-image:linear-gradient(to bottom,black 0%,black 62%,transparent 100%);
+}
+.wrap{position:relative;z-index:1}
+
+/* ---------- Header ---------- */
+header{
+  position:fixed;top:0;right:0;left:0;z-index:50;
+  background:rgba(250,249,246,.86);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(232,227,218,.6);
+}
+.hrow{display:flex;align-items:center;justify-content:space-between;max-width:1280px;margin:0 auto;
+  padding:12px var(--pad);gap:12px}
+.brand{font-weight:900;font-size:16px;display:flex;align-items:center;gap:10px;white-space:nowrap;text-decoration:none;color:var(--ink)}
+.brand .dot{width:9px;height:9px;flex:none;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+nav.desk{display:flex;gap:clamp(14px,2.5vw,26px);font-size:13.5px}
+nav.desk a{color:var(--muted);text-decoration:none;transition:color .25s;display:inline-flex;align-items:center;gap:7px;font-weight:600}
+nav.desk a:hover{color:var(--ink)}
+nav.desk a .ic{width:15px;height:15px}
+/* drawer toggle logic + phone display in drawer */
+.menu-btn{display:none;background:none;border:none;cursor:pointer;color:var(--ink);padding:8px;border-radius:10px;-webkit-tap-highlight-color:transparent}
+.menu-btn:active{background:var(--accent-soft)}
+.theme-btn{background:none;border:1px solid var(--line);cursor:pointer;color:var(--ink);padding:8px;border-radius:10px;display:grid;place-items:center;-webkit-tap-highlight-color:transparent;transition:background .25s}
+.theme-btn:hover{background:var(--accent-soft)}
+
+/* mobile drawer menu */
+.drawer{
+  position:fixed;inset:0;z-index:49;pointer-events:none;
+}
+.drawer .scrim{position:absolute;inset:0;background:rgba(23,19,16,.35);opacity:0;transition:opacity .3s}
+.drawer .sheet{
+  position:absolute;top:0;left:0;right:0;
+  background:var(--surface);
+  padding:calc(64px + var(--sat)) 22px 24px;
+  border-radius:0 0 26px 26px;
+  box-shadow:0 30px 60px -20px rgba(23,19,16,.35);
+  transform:translateY(-102%);transition:transform .45s var(--ease);
+}
+.drawer.open{pointer-events:auto}
+.drawer.open .scrim{opacity:1}
+.drawer.open .sheet{transform:none}
+.drawer .sheet nav{display:grid;gap:4px}
+.drawer .sheet a{
+  display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--ink);
+  font-weight:600;font-size:15.5px;padding:13px 10px;border-radius:14px;
+  transition:background .2s;-webkit-tap-highlight-color:transparent;
+}
+.drawer .sheet a:active{background:var(--accent-soft)}
+.drawer .sheet a .ic{color:var(--accent)}
+.drawer .sheet .call{
+  margin-top:12px;display:flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--accent);color:#fff;font-weight:900;border-radius:100px;padding:14px;text-decoration:none;font-size:15.5px;
+  direction:rtl;
+}
+.drawer .sheet .call .num{direction:ltr;unicode-bidi:embed}
+
+@media(max-width:880px){
+  nav.desk{display:none}
+  .menu-btn{display:grid;place-items:center}
+  body{font-size:15.5px}
+}
+
+/* ---------- Shared ---------- */
+section{position:relative}
+.container{max-width:1180px;margin:0 auto;padding:0 var(--pad)}
+.sec-head{margin-bottom:clamp(30px,5vw,54px)}
+.sec-head .kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:600;color:var(--accent);
+  border:1px solid rgba(168,37,28,.25);padding:5px 13px;border-radius:100px;margin-bottom:14px;
+  background:var(--accent-soft);
+}
+.sec-head h2{font-weight:900;font-size:clamp(24px,4.5vw,40px);line-height:1.45;letter-spacing:-.01em}
+.sec-head p{color:var(--muted);font-size:15.5px;max-width:52ch;margin-top:8px}
+
+/* ---------- Hero ---------- */
+.hero{
+  min-height:100svh;display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  align-items:center;gap:clamp(24px,5vw,72px);
+  padding:calc(96px + var(--sat)) var(--pad) 70px;
+  max-width:1280px;margin-inline:auto;
+}
+@media(max-width:880px){
+  .hero{grid-template-columns:1fr;text-align:center;justify-items:center;gap:26px;padding-top:calc(86px + var(--sat));min-height:auto;padding-bottom:44px}
+  .hero .sub{margin-inline:auto}
+  .hero .cta{justify-content:center}
+}
+.hero .kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:600;color:var(--accent);
+  border:1px solid rgba(168,37,28,.25);padding:6px 14px;border-radius:100px;margin-bottom:18px;
+  background:rgba(255,255,255,.65);backdrop-filter:blur(4px);
+}
+.hero .kicker .ic{width:15px;height:15px}
+.hero h1{font-weight:900;font-size:clamp(32px,7vw,68px);line-height:1.32;letter-spacing:-.02em;margin-bottom:14px}
+.hero h1 .em{color:var(--accent)}
+.hero .sub{color:var(--muted);font-size:clamp(15px,2vw,18px);max-width:40ch;line-height:2}
+.hero .cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.btn{
+  font-family:inherit;font-size:15px;font-weight:600;
+  padding:14px 26px;border-radius:100px;text-decoration:none;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s;
+  display:inline-flex;align-items:center;gap:9px;min-height:48px;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn .ic{width:17px;height:17px}
+.btn:active{transform:scale(.96)}
+.btn-accent{background:var(--accent);color:#fff;box-shadow:0 10px 30px -12px rgba(168,37,28,.7)}
+.btn-accent:hover{transform:translateY(-3px)}
+.btn-ghost{color:var(--ink);border:1.5px solid var(--line);background:rgba(255,255,255,.65)}
+.btn-ghost:hover{transform:translateY(-3px);border-color:var(--muted)}
+
+/* portrait */
+.portrait-wrap{position:relative;justify-self:center;width:min(56vw,260px);aspect-ratio:1}
+@media(min-width:881px){.portrait-wrap{width:min(78vw,400px)}}
+.portrait-wrap .halo{
+  position:absolute;inset:-7%;border-radius:50%;
+  background:conic-gradient(from 140deg,rgba(168,37,28,.16),rgba(168,37,28,.03),rgba(23,19,16,.08),rgba(168,37,28,.16));
+  animation:spin 26s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.portrait-wrap img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  border-radius:50%;border:5px solid var(--surface);
+  box-shadow:0 30px 80px -30px rgba(23,19,16,.45),0 0 0 1px var(--line);
+  animation:float 7s ease-in-out infinite;
+}
+@keyframes float{50%{transform:translateY(-10px)}}
+.orbit{
+  position:absolute;top:2%;left:0;
+  width:54px;height:54px;border-radius:50%;
+  background:var(--surface);border:1px solid var(--line);
+  display:grid;place-items:center;color:var(--accent);
+  box-shadow:0 14px 34px -14px rgba(23,19,16,.35);
+  animation:float 6s .8s ease-in-out infinite;
+}
+
+/* ---------- Stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,2.5vw,24px);padding-bottom:80px}
+@media(max-width:880px){.stats{grid-template-columns:repeat(2,1fr);padding-bottom:50px}}
+.stat{
+  background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 14px;text-align:center;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease);
+}
+.stat:hover{transform:translateY(-6px);box-shadow:0 24px 48px -24px rgba(23,19,16,.25)}
+.stat .num{font-size:clamp(25px,4vw,40px);font-weight:900;color:var(--accent);line-height:1.3}
+.stat .lbl{font-size:12.5px;color:var(--muted);font-weight:600}
+
+/* ---------- Degrees ---------- */
+/* ---------- Sections: keep .container horizontal padding (ID rules overrode it) ---------- */
+#about,#history,#subjects,#method,#channel,#coverage,#contact{padding-inline:var(--pad)}
+#about{padding-block:20px 90px}
+.degrees{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:34px}
+@media(max-width:720px){.degrees{grid-template-columns:1fr}}
+.degree{background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:var(--radius);padding:22px;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+.degree:hover{transform:translateY(-5px);box-shadow:0 20px 44px -22px rgba(23,19,16,.22)}
+.degree .tile{margin-bottom:14px}
+.degree h3{font-size:16px;font-weight:900;margin-bottom:4px}
+.degree p{font-size:13.5px;color:var(--muted)}
+
+/* ---------- Timeline ---------- */
+#history{padding-block:16px 90px}
+.timeline{position:relative;display:grid;gap:14px}
+.timeline::before{content:'';position:absolute;top:8px;bottom:8px;right:11px;width:2px;
+  background:linear-gradient(var(--line) 60%,transparent)}
+.titem{position:relative;padding-right:44px}
+.titem::before{content:'';position:absolute;right:5px;top:12px;width:14px;height:14px;border-radius:50%;
+  background:var(--surface);border:3px solid var(--accent)}
+.titem .tl{font-size:12px;font-weight:900;color:var(--accent)}
+.titem .tt{font-size:15.5px;font-weight:900;margin:2px 0}
+.titem .td{font-size:13.5px;color:var(--muted)}
+
+/* ---------- Subjects ---------- */
+#subjects{padding-block:16px 90px}
+.subjects{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.subjects{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.subjects{grid-template-columns:1fr}}
+.subj{background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:var(--radius);padding:24px 20px;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s}
+.subj:hover{transform:translateY(-6px);box-shadow:0 24px 50px -24px rgba(23,19,16,.24);border-color:rgba(168,37,28,.3)}
+.subj .tile{margin-bottom:14px}
+.subj h3{font-size:16.5px;font-weight:900;margin-bottom:6px}
+.subj p{font-size:13.5px;color:var(--muted)}
+
+/* ---------- Method ---------- */
+#method{padding-block:16px 90px}
+.method-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:720px){.method-grid{grid-template-columns:1fr}}
+.mstep{display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,.72);border:1px solid var(--line);
+  border-radius:var(--radius);padding:22px;transition:transform .4s var(--ease)}
+.mstep:hover{transform:translateX(-5px)}
+.mstep .n{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+  background:var(--ink);color:#fff;font-weight:900;font-size:16px}
+.mstep h3{font-size:15.5px;font-weight:900;margin-bottom:4px}
+.mstep p{font-size:13.5px;color:var(--muted)}
+
+/* ---------- Channel CTA ---------- */
+#channel{padding-block:16px 90px}
+.cta-box{background:linear-gradient(135deg,#171310,#2A241E);color:#fff;border-radius:28px;
+  padding:clamp(28px,6vw,60px);text-align:center;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(600px 300px at 20% 0%,rgba(168,37,28,.35),transparent 60%),
+             radial-gradient(500px 260px at 90% 100%,rgba(168,37,28,.2),transparent 60%)}
+.cta-box>*{position:relative}
+.cta-box .tile{background:rgba(255,255,255,.1);color:#fff;margin:0 auto 16px}
+.cta-box h2{font-weight:900;font-size:clamp(21px,4vw,32px);line-height:1.5;margin-bottom:10px}
+.cta-box p{color:rgba(255,255,255,.75);font-size:14.5px;max-width:44ch;margin:0 auto 26px}
+.cta-box .btn-accent{font-size:15.5px;padding:14px 32px}
+
+/* ---------- Coverage ---------- */
+#coverage{padding-block:16px 90px}
+.cov{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:720px){.cov{grid-template-columns:1fr}}
+.cov .card{text-align:center;padding:28px 18px;background:rgba(255,255,255,.72);border:1px solid var(--line);
+  border-radius:var(--radius);transition:transform .4s var(--ease)}
+.cov .card:hover{transform:translateY(-5px)}
+.cov .tile{margin:0 auto 12px;border-radius:50%}
+.cov h3{font-size:16px;font-weight:900;margin-bottom:6px}
+.cov p{font-size:13px;color:var(--muted)}
+
+/* ---------- Contact ---------- */
+#contact{padding-block:16px 90px}
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:720px){.contact-grid{grid-template-columns:1fr}}
+.contact-card{display:flex;align-items:center;gap:16px;text-decoration:none;
+  background:rgba(255,255,255,.75);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px;transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s;min-height:76px}
+.contact-card:hover{transform:translateY(-5px);border-color:rgba(168,37,28,.35);box-shadow:0 20px 44px -22px rgba(23,19,16,.25)}
+.contact-card .tile{width:52px;height:52px}
+.contact-card .t{font-size:15.5px;font-weight:900;color:var(--ink)}
+.contact-card .d{font-size:13px;color:var(--muted);direction:ltr;text-align:right}
+
+/* ---------- Footer ---------- */
+footer{border-top:1px solid var(--line);padding:30px var(--pad) calc(30px + var(--sab));
+  text-align:center;color:var(--muted);font-size:13.5px}
+footer .name{font-weight:900;color:var(--ink)}
+
+/* ---------- AI Chat widget ---------- */
+.chat-fab{
+  position:fixed;left:calc(var(--pad)/1.5);bottom:calc(var(--pad)/1.2);z-index:45;
+  width:56px;height:56px;border-radius:50%;
+  background:var(--ink);color:#fff;border:none;cursor:pointer;
+  display:grid;place-items:center;
+  box-shadow:0 14px 34px -10px rgba(23,19,16,.55);
+  transition:transform .3s var(--ease);-webkit-tap-highlight-color:transparent;
+}
+.chat-fab:hover{transform:translateY(-3px)}
+.chat-fab:active{transform:scale(.92)}
+.chat-fab .ic{width:23px;height:23px}
+.chat-panel{
+  position:fixed;left:calc(var(--pad)/1.5);bottom:calc(var(--pad)/1.2 + 70px);z-index:46;
+  width:min(360px, calc(100vw - 36px));
+  max-height:min(520px, calc(100svh - 180px));
+  display:none;flex-direction:column;
+  background:var(--surface);border:1px solid var(--line);border-radius:22px;
+  box-shadow:0 30px 80px -20px rgba(23,19,16,.4);overflow:hidden;
+  animation:chatIn .35s var(--ease);
+}
+@keyframes chatIn{from{opacity:0;transform:translateY(14px) scale(.96)}}
+.chat-panel.open{display:flex}
+.chat-head{display:flex;align-items:center;gap:12px;padding:13px 16px;
+  background:linear-gradient(135deg,#171310,#2A241E);color:#fff}
+.chat-head .avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center;flex:none}
+.chat-head .avatar .ic{width:19px;height:19px}
+.chat-head .ttl{font-size:14px;font-weight:900;line-height:1.3}
+.chat-head .st{font-size:11px;color:rgba(255,255,255,.65)}
+.chat-head button{margin-right:auto;background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;padding:6px;border-radius:8px;display:grid;place-items:center}
+.chat-head button:hover{background:rgba(255,255,255,.12);color:#fff}
+.chat-body{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px;
+  background:var(--bg);min-height:180px;overscroll-behavior:contain}
+.msg{max-width:85%;padding:10px 14px;border-radius:16px;font-size:13.5px;line-height:1.8;
+  white-space:pre-wrap;word-break:break-word}
+.msg.bot{background:var(--surface);border:1px solid var(--line);align-self:flex-start;border-top-right-radius:4px}
+.msg.user{background:var(--accent);color:#fff;align-self:flex-end;border-top-left-radius:4px}
+.msg.typing{display:flex;gap:5px;align-items:center;padding:14px 16px}
+.msg.typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:tp 1.2s infinite}
+.msg.typing span:nth-child(2){animation-delay:.2s}
+.msg.typing span:nth-child(3){animation-delay:.4s}
+@keyframes tp{30%{transform:translateY(-5px);opacity:.4}}
+.chat-suggest{display:flex;gap:8px;padding:10px 14px 0;flex-wrap:wrap;background:var(--bg)}
+.chat-suggest button{font-family:inherit;font-size:12px;font-weight:600;color:var(--accent);
+  background:var(--surface);border:1px solid rgba(168,37,28,.25);border-radius:100px;
+  padding:6px 13px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.chat-input{display:flex;gap:8px;padding:12px 14px;background:var(--surface);border-top:1px solid var(--line)}
+.chat-input input{flex:1;font-family:inherit;font-size:14px;border:1.5px solid var(--line);border-radius:100px;
+  padding:11px 16px;outline:none;background:var(--bg);min-width:0;transition:border-color .25s}
+.chat-input input:focus{border-color:var(--accent)}
+.chat-input button{width:44px;height:44px;flex:none;border-radius:50%;background:var(--accent);color:#fff;border:none;
+  cursor:pointer;display:grid;place-items:center;transition:transform .2s;-webkit-tap-highlight-color:transparent}
+.chat-input button:active{transform:scale(.9)}
+.chat-input button:disabled{background:var(--line);cursor:default}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<canvas id="acid" aria-hidden="true"></canvas>
+<div class="wrap">
+
+<header>
+  <div class="hrow">
+    <a class="brand" href="#top"><span class="dot"></span>مجید دوایی</a>
+    <nav class="desk">
+      <a href="#about" data-icon="user">درباره</a>
+      <a href="#history" data-icon="history">سوابق</a>
+      <a href="#subjects" data-icon="book-open">دروس</a>
+      <a href="#method" data-icon="lightbulb">روش تدریس</a>
+      <a href="#channel" data-icon="play">نمونه تدریس</a>
+      <a href="#contact" data-icon="phone">تماس</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="حالت شب"></button>
+    <button class="menu-btn" id="menuBtn" aria-label="منو"></button>
+  </div>
+</header>
+
+<!-- mobile drawer -->
+<div class="drawer" id="drawer">
+  <div class="scrim" id="drawerScrim"></div>
+  <div class="sheet">
+    <nav>
+      <a href="#about" data-icon="user">درباره استاد</a>
+      <a href="#history" data-icon="history">سوابق حرفه‌ای</a>
+      <a href="#subjects" data-icon="book-open">دروس و خدمات</a>
+      <a href="#method" data-icon="lightbulb">روش تدریس</a>
+      <a href="#channel" data-icon="play">نمونه تدریس</a>
+      <a href="#contact" data-icon="phone">تماس</a>
+    </nav>
+    <a class="call" href="tel:+989124864495"><span>رزرو کلاس —</span><span class="num">۰۹۱۲ ۴۸۶ ۴۴۹۵</span></a>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div>
+    <span class="kicker"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z"/><path d="M12 8v4l2.5 2.5"/></svg>مدرس فیزیک دبیرستان · کنکور · المپیاد</span>
+    <h1>آنجا که <span class="em">اندیشه</span><br>با فیزیک گره می‌خورد</h1>
+    <p class="sub">رتبه ۲ دکترای فیزیک سراسری، ۱۸ سال تدریس در بهترین مدارس تهران — یادگیری عمیق از فهمِ ریشه‌ها آغاز می‌شود، نه از حفظ فرمول‌ها.</p>
+    <div class="cta">
+      <a class="btn btn-accent" href="tel:+989124864495" data-icon="phone">رزرو کلاس</a>
+      <a class="btn btn-ghost" href="#subjects" data-icon="book-open">دروس و خدمات</a>
+    </div>
+  </div>
+  <div class="portrait-wrap">
+    <div class="halo"></div>
+    <img src="data:image/jpeg;base64,__PORTRAIT__" alt="مجید دوایی">
+    <div class="orbit" data-icon-box="graduation-cap"></div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="container">
+  <div class="stats">
+    <div class="stat rv"><div class="num" data-count="18">۰</div><div class="lbl">سال سابقه تدریس</div></div>
+    <div class="stat rv"><div class="num" data-count="2" data-suffix="م">۰</div><div class="lbl">رتبه دکترای فیزیک سراسری</div></div>
+    <div class="stat rv"><div class="num" data-count="1" data-suffix="م">۰</div><div class="lbl">رتبه استخدامی آموزش و پرورش تهران</div></div>
+    <div class="stat rv"><div class="num">۲</div><div class="lbl">ارشد: فیزیک هسته‌ای و فلسفه علم</div></div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="container">
+  <div class="sec-head">
+    <span class="kicker">درباره استاد</span>
+    <h2>از فیزیک هسته‌ای تا فلسفه علم؛<br>یک عمر پرسیدنِ درست</h2>
+    <p>ترکیب نادرِ فیزیکِ محض و تفکرِ فلسفی — همین چیزی است که تدریس او را متفاوت می‌کند.</p>
+  </div>
+  <div class="degrees">
+    <div class="degree rv">
+      <div class="tile" data-icon-box="atom"></div>
+      <h3>کارشناسی ارشد فیزیک هسته‌ای</h3>
+      <p>دانشگاه تهران</p>
+    </div>
+    <div class="degree rv">
+      <div class="tile" data-icon-box="brain"></div>
+      <h3>کارشناسی ارشد فلسفه علم</h3>
+      <p>دانشگاه صنعتی شریف</p>
+    </div>
+    <div class="degree rv">
+      <div class="tile" data-icon-box="trophy"></div>
+      <h3>رتبه ۲ کنکور دکترای فیزیک سراسری</h3>
+      <p>نتیجه‌ی روش درست مطالعه، نه شب‌بیداری بی‌هدف</p>
+    </div>
+    <div class="degree rv">
+      <div class="tile" data-icon-box="medal"></div>
+      <h3>رتبه ۱ آزمون استخدامی آموزش و پرورش</h3>
+      <p>شهر تهران</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HISTORY ============ -->
+<section id="history" class="container">
+  <div class="sec-head">
+    <span class="kicker">سوابق حرفه‌ای</span>
+    <h2>۱۸ سال تدریس در بهترین مدارس</h2>
+    <p>تجربه‌ی کلاس‌داری در مدارس برتر تهران — جایی که فقط بهترین‌ها تدریس می‌کنند.</p>
+  </div>
+  <div class="timeline">
+    <div class="titem rv">
+      <div class="tl">مدارس برتر تهران</div>
+      <div class="tt">مدرس فیزیک و ریاضی</div>
+      <div class="td">سلام، سبحان، احسان، گسترش، پیشرو، آذین و مدارس دیگر</div>
+    </div>
+    <div class="titem rv">
+      <div class="tl">دبیرستان و پیش‌دانشگاهی</div>
+      <div class="tt">فیزیک پایه ۷ تا ۱۲</div>
+      <div class="td">تدریس علوم و فیزیک متوسطه اول و دوم، تقویتی و تضمینی</div>
+    </div>
+    <div class="titem rv">
+      <div class="tl">کنکور و المپیاد</div>
+      <div class="tt">فیزیک رقابتی</div>
+      <div class="td">کنکور کارشناسی، ارشد و دکتری + آمادگی المپیاد فیزیک</div>
+    </div>
+    <div class="titem rv">
+      <div class="tl">دانشگاه</div>
+      <div class="tt">فیزیک هالیدی و دروس تخصصی</div>
+      <div class="td">فیزیک عمومی ۱ و ۲، هالیدی، مکانیک کوانتوم، الکترومغناطیس و مکانیک تحلیلی</div>
+    </div>
+    <div class="titem rv">
+      <div class="tl">فراتر از فیزیک</div>
+      <div class="tt">ریاضیات، فلسفه و منطق دبیرستان</div>
+      <div class="td">مترجم مقالات فیزیک در کانال رسمی تلگرام</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUBJECTS ============ -->
+<section id="subjects" class="container">
+  <div class="sec-head">
+    <span class="kicker">دروس و خدمات</span>
+    <h2>هر سطح، یک روش مخصوص خودش</h2>
+    <p>از دانش‌آموز هفتم تا دانشجوی ارشد فیزیک — در تهران، اصفهان یا آنلاین از هرجای ایران.</p>
+  </div>
+  <div class="subjects">
+    <div class="subj rv"><div class="tile" data-icon-box="sigma"></div><h3>فیزیک دبیرستان</h3><p>پایه هفتم تا دوازدهم، نهایی و تقویتی — از صفر تا صد.</p></div>
+    <div class="subj rv"><div class="tile" data-icon-box="target"></div><h3>فیزیک کنکور</h3><p>کنکور کارشناسی، ارشد و دکتری؛ حل تست تضمینی با روش رتبه‌برها.</p></div>
+    <div class="subj rv"><div class="tile" data-icon-box="star"></div><h3>المپیاد فیزیک</h3><p>آمادگی المپیاد با عمق و استاندارد مسابقات.</p></div>
+    <div class="subj rv"><div class="tile" data-icon-box="book-open"></div><h3>فیزیک هالیدی</h3><p>مرجع طلایی فیزیک دانشگاهی، تدریس فصل‌به‌فصل با حل مسائل.</p></div>
+    <div class="subj rv"><div class="tile" data-icon-box="atom"></div><h3>دروس تخصصی فیزیک</h3><p>مکانیک کوانتوم، الکترومغناطیس و مکانیک تحلیلی برای دانشجویان فیزیک.</p></div>
+    <div class="subj rv"><div class="tile" data-icon-box="sigma"></div><h3>ریاضیات دبیرستان</h3><p>ریاضی پایه و رشته ریاضی، گسسته و هندسه.</p></div>
+    <div class="subj rv"><div class="tile" data-icon-box="brain"></div><h3>فلسفه و منطق</h3><p>تدریس فلسفه و منطق دبیرستان با نگاهِ یک ارشد فلسفه علم.</p></div>
+    <div class="subj rv"><div class="tile" data-icon-box="video"></div><h3>کلاس آنلاین</h3><p>تدریس مجازی با بهترین کیفیت برای کل کشور.</p></div>
+    <div class="subj rv"><div class="tile" data-icon-box="home"></div><h3>تدریس خصوصی</h3><p>در منزل — پاسداران، تجریش، نیاوران، قلهک، ونک، سعادت‌آباد، شهرک غرب.</p></div>
+  </div>
+</section>
+
+<!-- ============ METHOD ============ -->
+<section id="method" class="container">
+  <div class="sec-head">
+    <span class="kicker">روش تدریس</span>
+    <h2>فیزیک را «فهم» کنید،<br>نه «حفظ»</h2>
+    <p>نتیجه‌ی ۱۸ سال کلاس‌داری و دو ارشدِ مکمل — فیزیک و فلسفه علم.</p>
+  </div>
+  <div class="method-grid">
+    <div class="mstep rv"><div class="n">۱</div><div><h3>از شهود تا فرمول</h3><p>هر مفهوم اول با مثال واقعی و شهود ساخته می‌شود؛ فرمول آخرِ مسیر است، نه اولش.</p></div></div>
+    <div class="mstep rv"><div class="n">۲</div><div><h3>حل تستِ هوشمندانه</h3><p>الگوهای تست کنکور را می‌شناسیم تا هر سؤال، یک مسیر شناخته‌شده باشد.</p></div></div>
+    <div class="mstep rv"><div class="n">۳</div><div><h3>پیوند فیزیک و فلسفه</h3><p>پشت هر قانون فیزیکی یک پرسش فلسفی است — دانستنش، یادگیری را ماندگار می‌کند.</p></div></div>
+    <div class="mstep rv"><div class="n">۴</div><div><h3>پیگیری تا نتیجه</h3><p>تست‌های دوره‌ای، تحلیل خطا و برنامه‌ی مطالعه شخصی برای هر دانشجو.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ CHANNEL CTA ============ -->
+<section id="channel" class="container">
+  <div class="cta-box rv">
+    <div class="tile" data-icon-box="play"></div>
+    <h2>قبل از رزرو، یک کلاس را ببینید</h2>
+    <p>نمونه تدریس و حل تست‌های کنکور، رایگان در کانال تلگرام — همان جا که مقالات فیزیک هم ترجمه می‌شوند.</p>
+    <a class="btn btn-accent" href="https://t.me/physicsdavaei" target="_blank" rel="noopener" data-icon="send">مشاهده نمونه تدریس رایگان</a>
+  </div>
+</section>
+
+<!-- ============ COVERAGE ============ -->
+<section id="coverage" class="container">
+  <div class="sec-head">
+    <span class="kicker">محدوده تدریس</span>
+    <h2>حضوری یا آنلاین، هر جای ایران</h2>
+  </div>
+  <div class="cov">
+    <div class="card rv"><div class="tile" data-icon-box="map-pin"></div><h3>تهران</h3><p>شمال، غرب و شرق — پاسداران، تجریش، نیاوران، قلهک، ونک، سعادت‌آباد، شهرک غرب و ...</p></div>
+    <div class="card rv"><div class="tile" data-icon-box="landmark"></div><h3>اصفهان و کرج</h3><p>اصفهان، مهرشهر و عظیمیه کرج — تدریس حضوری در منزل.</p></div>
+    <div class="card rv"><div class="tile" data-icon-box="globe"></div><h3>آنلاین سراسری</h3><p>تدریس مجازی با بهترین کیفیت برای همه شهرهای ایران.</p></div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="container">
+  <div class="sec-head">
+    <span class="kicker">تماس</span>
+    <h2>رزرو کلاس و مشاوره</h2>
+    <p>برای تعیین سطح رایگان یا رزرو کلاس، مستقیم در تماس باشید.</p>
+  </div>
+  <div class="contact-grid">
+    <a class="contact-card rv" href="tel:+989124864495">
+      <div class="tile round" data-icon-box="phone"></div>
+      <div><div class="t">تماس تلفنی</div><div class="d">+98 912 486 4495</div></div>
+    </a>
+    <a class="contact-card rv" href="https://t.me/majid807060" target="_blank" rel="noopener">
+      <div class="tile round" data-icon-box="message-circle"></div>
+      <div><div class="t">تلگرام استاد</div><div class="d">@majid807060</div></div>
+    </a>
+    <a class="contact-card rv" href="https://t.me/physicsdavaei" target="_blank" rel="noopener">
+      <div class="tile round" data-icon-box="play"></div>
+      <div><div class="t">کانال نمونه تدریس</div><div class="d">t.me/physicsdavaei</div></div>
+    </a>
+    <div class="contact-card rv" style="cursor:default">
+      <div class="tile round" data-icon-box="clock"></div>
+      <div><div class="t">ساعت کلاس‌ها</div><div class="d" style="direction:rtl">هماهنگی تلفنی — همه‌روزه</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="name">مجید دوایی</span> · مدرس فیزیک دبیرستان
+  <div style="margin-top:6px;font-size:12.5px">© ۱۴۰۵</div>
+</footer>
+
+</div>
+
+<!-- ============ AI CHAT WIDGET ============ -->
+<button class="chat-fab" id="chatFab" aria-label="دستیار هوشمند"></button>
+<div class="chat-panel" id="chatPanel" role="dialog" aria-label="چت با دستیار">
+  <div class="chat-head">
+    <div class="avatar" data-icon-box="sparkles"></div>
+    <div><div class="ttl">دستیار هوشمند سایت</div><div class="st" id="chatStatus">آنلاین — آماده پاسخ</div></div>
+    <button id="chatClose" aria-label="بستن" data-icon="x"></button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-suggest" id="chatSuggest">
+    <button data-q="رزرو کلاس چطور انجام میشه؟">رزرو کلاس</button>
+    <button data-q="سابقه و مدارک استاد چیست؟">سوابق استاد</button>
+    <button data-q="کجا تدریس می‌کنید؟ شمال تهران هم میایید؟">محدوده تدریس</button>
+    <button data-q="قانون دوم نیوتون رو با یک مثال ساده توضیح بده">سؤال درسی</button>
+  </div>
+  <div class="chat-input">
+    <input id="chatInput" type="text" placeholder="سؤالت رو بنویس..." autocomplete="off" maxlength="500">
+    <button id="chatSend" aria-label="ارسال" data-icon="send"></button>
+  </div>
+</div>
+
+<script>
+__ICONLIB__
+__ACID__
+
+/* inject icons into placeholders */
+(()=>{
+  document.querySelectorAll('[data-icon]').forEach(el=>{
+    const n=el.dataset.icon;
+    el.insertAdjacentHTML('afterbegin', icon(n, el.classList.contains('menu-btn')?'ic':'ic ic-sm'));
+  });
+  document.querySelectorAll('[data-icon-box]').forEach(el=>{
+    el.innerHTML=icon(el.dataset.iconBox,'ic ic-lg');
+  });
+})();
+
+/* drawer menu — toggle on button click */
+(()=>{
+  const d=document.getElementById('drawer'),btn=document.getElementById('menuBtn');
+  btn.innerHTML=icon('menu','ic');
+  const close=()=>d.classList.remove('open');
+  btn.addEventListener('click',e=>{e.stopPropagation();d.classList.toggle('open')});
+  document.getElementById('drawerScrim').addEventListener('click',close);
+  d.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',close));
+  document.addEventListener('click',e=>{
+    if(d.classList.contains('open')&&!d.contains(e.target)&&e.target!==btn&&!btn.contains(e.target))close();
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+})();
+
+/* theme — light/dark with persistence */
+(()=>{
+  const btn=document.getElementById('themeBtn'),root=document.documentElement;
+  const saved=localStorage.getItem('theme');
+  const prefers=matchMedia('(prefers-color-scheme: dark)').matches;
+  const set=t=>{
+    root.dataset.theme=t;localStorage.setItem('theme',t);
+    btn.innerHTML=icon(t==='dark'?'sun':'moon','ic');
+    btn.setAttribute('aria-label',t==='dark'?'حالت روز':'حالت شب');
+  };
+  set(saved||(prefers?'dark':'light'));
+  btn.addEventListener('click',()=>set(root.dataset.theme==='dark'?'light':'dark'));
+})();
+
+/* Persian counters */
+(()=>{
+  const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return;io.unobserve(e.target);
+    const el=e.target,t=parseFloat(el.dataset.count),suf=el.dataset.suffix||'';
+    let t0=null;
+    const tick=ts=>{if(!t0)t0=ts;const p=Math.min((ts-t0)/1300,1);
+      el.textContent=fa(Math.round(t*(1-Math.pow(1-p,4))))+suf;
+      if(p<1)requestAnimationFrame(tick)};
+    requestAnimationFrame(tick);
+  }),{threshold:.5});
+  document.querySelectorAll('[data-count]').forEach(el=>io.observe(el));
+})();
+
+/* Reveal */
+(()=>{
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
+  }),{threshold:.12});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+})();
+
+/* AI Chat */
+(()=>{
+  const fab=document.getElementById('chatFab'),panel=document.getElementById('chatPanel'),
+        body=document.getElementById('chatBody'),input=document.getElementById('chatInput'),
+        send=document.getElementById('chatSend'),close=document.getElementById('chatClose'),
+        status=document.getElementById('chatStatus'),suggest=document.getElementById('chatSuggest');
+  fab.innerHTML=icon('sparkles','ic');
+  let history=[],busy=false,opened=false;
+
+  function addMsg(text,who){
+    const d=document.createElement('div');
+    d.className='msg '+who;d.textContent=text;
+    body.appendChild(d);body.scrollTop=body.scrollHeight;
+    return d;
+  }
+
+  async function ask(q){
+    if(busy||!q.trim())return;
+    busy=true;send.disabled=true;
+    input.value='';suggest.style.display='none';
+    status.textContent='در حال پاسخ...';
+    addMsg(q,'user');
+    const t=document.createElement('div');
+    t.className='msg bot typing';t.innerHTML='<span></span><span></span><span></span>';
+    body.appendChild(t);body.scrollTop=body.scrollHeight;
+
+    history.push({role:'user',content:q});
+    try{
+      const r=await fetch('/api/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:history})});
+      if(!r.ok)throw new Error('http '+r.status);
+      t.remove();
+      const bot=document.createElement('div');bot.className='msg bot';
+      body.appendChild(bot);body.scrollTop=body.scrollHeight;
+
+      const reader=r.body.getReader(),dec=new TextDecoder();
+      let buf='',full='',last=0;
+      while(true){
+        const {done,value}=await reader.read();
+        if(done)break;
+        buf+=dec.decode(value,{stream:true});
+        const lines=buf.split('\n');buf=lines.pop();
+        for(const line of lines){
+          if(!line.startsWith('data:'))continue;
+          const data=line.slice(5).trim();
+          if(data==='[DONE]')continue;
+          try{
+            const j=JSON.parse(data);
+            const delta=j.choices?.[0]?.delta?.content||'';
+            if(delta){full+=delta;bot.textContent=full;
+              const now=performance.now();
+              if(now-last>60){body.scrollTop=body.scrollHeight;last=now}}
+          }catch(e){}
+        }
+      }
+      if(full){
+        history.push({role:'assistant',content:full});
+        bot.textContent=bot.textContent.replace(/\*\*([^*]+)\*\*/g,'$1').replace(/\*/g,'');
+      }
+      else bot.textContent='پاسخی دریافت نشد. دوباره تلاش کن یا با ۰۹۱۲۴۸۶۴۴۹۵ تماس بگیر.';
+    }catch(e){
+      t.remove();
+      addMsg('خطا در ارتباط با دستیار. اینترنتت رو چک کن یا با ۰۹۱۲۴۸۶۴۴۹۵ تماس بگیر.','bot');
+    }
+    status.textContent='آنلاین — آماده پاسخ';
+    busy=false;send.disabled=false;
+  }
+
+  fab.addEventListener('click',()=>{
+    panel.classList.add('open');
+    if(!opened){opened=true;
+      setTimeout(()=>addMsg('سلام! من دستیار هوشمند سایت مجید دوایی هستم. درباره دروس، رزرو کلاس یا هر سؤال درسی فیزیک و ریاضی ازم بپرس.','bot'),350);
+    }
+  });
+  close.addEventListener('click',()=>panel.classList.remove('open'));
+  send.addEventListener('click',()=>ask(input.value));
+  input.addEventListener('keydown',e=>{if(e.key==='Enter')ask(input.value)});
+  suggest.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>ask(b.dataset.q)));
+})();
+</script>
+</body>
+</html>
