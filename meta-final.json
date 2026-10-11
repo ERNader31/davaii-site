@@ -1,0 +1,1 @@
+{"main_module":"worker-final.js","compatibility_date":"2026-04-07","bindings":[{"type":"kv_namespace","name":"SITE_KV","namespace_id":"bf1cae44af4c4ba59a8a8917d70c7aa3"},{"type":"plain_text","name":"ADMIN_KEY","text":"davaii-807060"}],"workers_dev":true,"placement":{"mode":"smart"}}

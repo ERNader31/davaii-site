@@ -52,10 +52,9 @@ html[data-theme="dark"] .msg.bot{background:var(--surface);border-color:var(--li
 html[data-theme="dark"] .chat-fab{background:var(--ink);color:#141110}
 html[data-theme="dark"] .chat-head{background:linear-gradient(135deg,#12100D,#241F19);color:#fff}
 html[data-theme="dark"] .chat-head .st{color:rgba(255,255,255,.6)}
+html[data-theme="dark"] .stat{background:rgba(30,26,22,.92);border-color:var(--line);backdrop-filter:none}
 html[data-theme="dark"] .stat .num{color:var(--accent);text-shadow:none}
-html[data-theme="dark"] .stat,
-html[data-theme="dark"] .stat .lbl,
-html[data-theme="dark"] .stat .num{color:var(--ink)}
+html[data-theme="dark"] .stat .lbl{color:var(--muted)}
 html[data-theme="dark"] .drawer .sheet a:active{background:var(--accent-soft)}
 html[data-theme="dark"] footer{border-top:1px solid var(--line)}
 html[data-theme="dark"] .titem::before{background:var(--surface)}
@@ -197,6 +196,7 @@ section{position:relative}
   box-shadow:0 30px 80px -30px rgba(23,19,16,.45),0 0 0 1px var(--line);
   animation:float 7s ease-in-out infinite;
 }
+.portrait-wrap.shape-square img{border-radius:26px}
 @keyframes float{50%{transform:translateY(-10px)}}
 .orbit{
   position:absolute;top:2%;left:0;
@@ -1274,6 +1274,15 @@ void main(){
   btn.addEventListener('click',()=>set(root.dataset.theme==='dark'?'light':'dark'));
 })();
 
+/* portrait shape (circle/square) — set from /admin */
+(()=>{ 
+  const w=document.querySelector('.portrait-wrap');
+  if(!w)return;
+  const apply=s=>{w.classList.toggle('shape-square',s==='square')};
+  try{const s=sessionStorage.getItem('portraitShape');if(s)apply(s)}catch(e){}
+  addEventListener('storage',e=>{if(e.key==='portraitShape')apply(e.newValue)});
+})();
+
 /* Persian counters */
 (()=>{
   const fa=n=>String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d]);
@@ -1325,7 +1334,8 @@ void main(){
 
     history.push({role:'user',content:q});
     try{
-      const r=await fetch('/api/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:history})});
+      const CHAT_API=(location.hostname.endsWith('.github.io'))?'https://davaii-site.rasekhoonai.workers.dev/api/chat':'/api/chat';
+      const r=await fetch(CHAT_API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:history})});
       if(!r.ok)throw new Error('http '+r.status);
       t.remove();
       const bot=document.createElement('div');bot.className='msg bot';
