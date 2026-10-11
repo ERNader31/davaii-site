@@ -726,8 +726,8 @@ __ACID__
             const delta=j.choices?.[0]?.delta?.content||'';
             if(delta){full+=delta;bot.textContent=full;
               const now=performance.now();
-              if(now-last>60){body.scrollTop=body.scrollHeight;last=now}}
-          }catch(e){}
+              if(now-last>60){body.scrollTop=body.scrollHeight;last=now}}}
+          catch(e){buf+=line}
         }
       }
       if(full){
@@ -737,7 +737,13 @@ __ACID__
       else bot.textContent='پاسخی دریافت نشد. دوباره تلاش کن یا با ۰۹۱۲۴۸۶۴۴۹۵ تماس بگیر.';
     }catch(e){
       t.remove();
-      addMsg('خطا در ارتباط با دستیار. اینترنتت رو چک کن یا با ۰۹۱۲۴۸۶۴۴۹۵ تماس بگیر.','bot');
+      const parts=document.querySelectorAll('.msg.bot');
+      const lastMsg=parts[parts.length-1];
+      if(lastMsg&&lastMsg.textContent.trim().length>0){
+        lastMsg.textContent+='\n\n(اتصال ناتمام ماند. پیام کامل دریافت نشد — دوباره سؤالت رو بپرس.)';
+      }else{
+        addMsg('خطا در ارتباط با دستیار. اینترنتت رو چک کن یا با ۰۹۱۲۴۸۶۴۴۹۵ تماس بگیر.','bot');
+      }
     }
     status.textContent='آنلاین — آماده پاسخ';
     busy=false;send.disabled=false;

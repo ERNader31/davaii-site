@@ -48,6 +48,14 @@ html[data-theme="dark"] .chat-input input{background:var(--bg);color:var(--ink)}
 html[data-theme="dark"] .chat-suggest{background:var(--bg)}
 html[data-theme="dark"] .chat-suggest button{background:var(--surface)}
 html[data-theme="dark"] .chat-panel{background:var(--surface)}
+html[data-theme="dark"] .msg.bot{background:var(--surface);border-color:var(--line);color:var(--ink)}
+html[data-theme="dark"] .chat-fab{background:var(--ink);color:#141110}
+html[data-theme="dark"] .chat-head{background:linear-gradient(135deg,#12100D,#241F19);color:#fff}
+html[data-theme="dark"] .chat-head .st{color:rgba(255,255,255,.6)}
+html[data-theme="dark"] .stat .num{color:var(--accent);text-shadow:none}
+html[data-theme="dark"] .stat,
+html[data-theme="dark"] .stat .lbl,
+html[data-theme="dark"] .stat .num{color:var(--ink)}
 html[data-theme="dark"] .drawer .sheet a:active{background:var(--accent-soft)}
 html[data-theme="dark"] footer{border-top:1px solid var(--line)}
 html[data-theme="dark"] .titem::before{background:var(--surface)}
@@ -1339,8 +1347,8 @@ void main(){
             const delta=j.choices?.[0]?.delta?.content||'';
             if(delta){full+=delta;bot.textContent=full;
               const now=performance.now();
-              if(now-last>60){body.scrollTop=body.scrollHeight;last=now}}
-          }catch(e){}
+              if(now-last>60){body.scrollTop=body.scrollHeight;last=now}}}
+          catch(e){buf+=line}
         }
       }
       if(full){
@@ -1350,7 +1358,13 @@ void main(){
       else bot.textContent='پاسخی دریافت نشد. دوباره تلاش کن یا با ۰۹۱۲۴۸۶۴۴۹۵ تماس بگیر.';
     }catch(e){
       t.remove();
-      addMsg('خطا در ارتباط با دستیار. اینترنتت رو چک کن یا با ۰۹۱۲۴۸۶۴۴۹۵ تماس بگیر.','bot');
+      const parts=document.querySelectorAll('.msg.bot');
+      const lastMsg=parts[parts.length-1];
+      if(lastMsg&&lastMsg.textContent.trim().length>0){
+        lastMsg.textContent+='\n\n(اتصال ناتمام ماند. پیام کامل دریافت نشد — دوباره سؤالت رو بپرس.)';
+      }else{
+        addMsg('خطا در ارتباط با دستیار. اینترنتت رو چک کن یا با ۰۹۱۲۴۸۶۴۴۹۵ تماس بگیر.','bot');
+      }
     }
     status.textContent='آنلاین — آماده پاسخ';
     busy=false;send.disabled=false;
