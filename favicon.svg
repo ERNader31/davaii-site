@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A8251C;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7B1A14;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Atom symbol with wave -->
+  <circle cx="16" cy="16" r="14" fill="url(#grad)" opacity="0.15"/>
+  <circle cx="16" cy="16" r="12" fill="none" stroke="url(#grad)" stroke-width="2.5"/>
+  <!-- Electron orbits -->
+  <ellipse cx="16" cy="16" rx="14" ry="5" fill="none" stroke="#A8251C" stroke-width="1.5" opacity="0.6"/>
+  <ellipse cx="16" cy="16" rx="5" ry="14" fill="none" stroke="#A8251C" stroke-width="1.5" opacity="0.6"/>
+  <ellipse cx="16" cy="16" rx="12" ry="3" fill="none" stroke="#A8251C" stroke-width="1" opacity="0.4"/>
+  <!-- Nucleus -->
+  <circle cx="16" cy="16" r="3" fill="#A8251C"/>
+  <!-- Electron dots -->
+  <circle cx="26" cy="16" r="1.8" fill="#A8251C"/>
+  <circle cx="6" cy="16" r="1.8" fill="#A8251C"/>
+  <circle cx="16" cy="26" r="1.8" fill="#A8251C"/>
+  <circle cx="16" cy="6" r="1.8" fill="#A8251C"/>
+</svg>
