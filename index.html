@@ -3743,7 +3743,7 @@ void main(){
 
     history.push({role:'user',content:q});
     try{
-      const CHAT_API=(location.hostname.endsWith('.github.io'))?'https://davaii-site.rasekhoonai.workers.dev/api/chat':'/api/chat';
+      const CHAT_API=(location.hostname==='davaii.ir')?'https://davaii-site.rasekhoonai.workers.dev/api/chat':'/api/chat';
       const r=await fetch(CHAT_API,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:history})});
       if(!r.ok)throw new Error('http '+r.status);
       t.remove();
